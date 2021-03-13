@@ -70,7 +70,7 @@ export const confirmEmailMailOptionSettings = {
 
 export const APP_NAME: string = "Tenant Manager";
 
-export const APP_DESCRIPTION: string = "This app is designed by Pius Onobhayedo for the management of tenants for any Web-based multitenant application";
+export const APP_DESCRIPTION: string = "This app is designed by JosephNwokotubo for the management of tenants for any Web-based multitenant application";
 
 export const API_VERSION: string = "v1";
 

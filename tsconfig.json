@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "jsx": "react", //added by Pius for and TSX compilation
+    "jsx": "react", //added by Josephfor and TSX compilation
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,

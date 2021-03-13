@@ -60,7 +60,7 @@ async function bootstrap() {
   */
 
   /**
-   * Pius note: You can set global prefix for routes e.g. for versioning purpose
+   * Josephnote: You can set global prefix for routes e.g. for versioning purpose
    */
 
   if (USE_API_VERSION_IN_URL) app.setGlobalPrefix(API_VERSION);

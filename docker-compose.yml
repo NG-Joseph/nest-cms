@@ -6,7 +6,7 @@ services:
     ports:
     - "5433:5432"
     volumes:
-    - /Users/piusonobhayedo/data/postgres:/data/postgres
+    - /Users/josephNwokotubo/data/postgres:/data/postgres
     env_file:
     - docker.env
     networks:
@@ -18,7 +18,7 @@ services:
  #   ports:
  #   - "26257:26257"
  #   volumes: 
- #   - /Users/piusonobhayedo/data/cockroachdb:/data/cockroachdb
+ #   - /Users/josephNwokotubo/data/cockroachdb:/data/cockroachdb
  # pgadmin:
  #   links:
  #   - postgres:postgres2
@@ -27,7 +27,7 @@ services:
  #   ports:
  #   - "8080:80"
  #   volumes:
-#  - /Users/piusonobhayedo/data/pgadmin:/root/.pgadmin
+#  - /Users/josephNwokotubo/data/pgadmin:/root/.pgadmin
  #   env_file:
    # - docker.env
   #  networks:

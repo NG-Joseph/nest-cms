@@ -36,7 +36,7 @@ export class AuthController {
 
     /**
      *This route is for ajax login Post call. 
-     e.g. curl -X POST http://localhost:3003/v1/auth/login -d '{"username": "piusono@gmail.com", "password": "password"}' -H "Content-Type: application/json"
+     e.g. curl -X POST http://localhost:3003/v1/auth/login -d '{"username": "josephono@gmail.com", "password": "password"}' -H "Content-Type: application/json"
      or from fetch() or axios(), etc.
      On success here, redirect is handled by the client
      * @param req 
