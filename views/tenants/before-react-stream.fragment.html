@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--html class="has-navbar-fixed-top"-->
+<!--see https://bulma.io/documentation/components/navbar/#fixed-navbar-->
+<html>
+    {%include "head.html" %}
+    <body class="layout-documentation page-layout">
+        {# Comment: The extra styled div here below before including navigation.html is to force footer to always be at the bottom 
+            even if content is not much. See https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+        #}
+        <div style="display: flex; min-height: 100vh; flex-direction: column;">
+            {%include "navigation.html"%}
+            <section class="section"  style="flex: 1;">
+                <nav class="container breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="/{{apiVersion}}">Home</a></li>
+                        <li><a href="#">Tenants Admin</a></li>
+                    </ul>
+                </nav>
+                <div class="container content is-medium">
+                    <h2>{{ title }}</h2>
+                    <div id="root">
+                        {# Here is where we want the react component to be embedded on streaming 
+                            to client using renderToNodeStream. 
+                            The closing div is within after-react-stream.html fragment#}

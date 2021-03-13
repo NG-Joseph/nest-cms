@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+//As bulma is light by default, no properties are overridden here
+
+$modal-card-head-radius: '3px';
+$modal-card-foot-radius: '3px';
+
+//Now it is time to import all installed bulma or some specific packages. Installing all for now
+@import "node_modules/bulma/bulma.sass";
+
+/*
+//or import specific packages
+// Import only what you need from Bulma
+@import "node_modules/bulma/sass/utilities/_all.sass";
+@import "node_modules/bulma/sass/base/_all.sass";
+@import "node_modules/bulma/sass/elements/button.sass";
+@import "node_modules/bulma/sass/elements/container.sass";
+@import "node_modules/bulma/sass/elements/title.sass";
+@import "node_modules/bulma/sass/form/_all.sass";
+@import "node_modules/bulma/sass/components/navbar.sass";
+@import "node_modules/bulma/sass/layout/hero.sass";
+@import "node_modules/bulma/sass/layout/section.sass";
+*/
+
+//Also install specific extensions or all
+
+/*import specific extensions*/
+@import 'node_modules/bulma-extensions/bulma-accordion/src/sass/index.sass';
+@import 'node_modules/bulma-extensions/bulma-carousel/src/sass/index.sass';
+@import 'node_modules/bulma-extensions/bulma-calendar/src/sass/index.sass';
+
+//for below, see https://github.com/postare/bulma-modal-fx. npm i bulma-modal-fx
+// Modal minimal setup
+/*
+$transition-duration: .3s;
+$transition-duration-newsPaper: .7s;
+$transition-duration-3dslit: .5s;
+$modal-perspective: 1300px;
+$modal-bg-color: rgba($black,.86);
+@import 'node_modules/bulma-modal-fx/src/_scss/main.scss';
+*/
+
+/*Add miscellaneous CSS entries here as they arise during development*/
+//Below is to ensure that the carousel in home page does not show outline on focus
+#homeCarousel div:focus {
+    outline:none;
+}
+
+//I like to put a border below navbar in 
+.navbar{
+    border-bottom: 1px solid rgb(201, 201, 201);
+}

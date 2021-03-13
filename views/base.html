@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!--html class="has-navbar-fixed-top"-->
+<!--see https://bulma.io/documentation/components/navbar/#fixed-navbar-->
+<html>
+{%include "head.html" %}
+
+<body class="layout-documentation page-layout">
+  {# Comment: The extra styled div here below is to force footer to always be at the bottom 
+      even if content is not much. See https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+      In addition, remember to put a section always for main contain between navigation and footer with flex: 1
+      
+  #}
+  <div style="display: flex; min-height: 100vh; flex-direction: column;">
+    {% block body %}
+    {% endblock body %}
+  </div>
+</body>
+
+</html>

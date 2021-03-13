@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block body %}
+{%include "navigation.html"%}
+<section class="section" style="flex: 1;">
+    <section class="section">
+        <div class="container">
+            <h3 class="title is-3">{{title}}</h3>
+        </div>
+    </section>
+    <section class="section">
+        <div id="notification" class="notification container animated slideInUp">
+            <button class="delete"></button>
+            <div id="notificationMessage">
+                {{notificationMessage}}
+            </div>
+        </div>
+    </section>
+</section>
+{%include "footer.html"%}
+<script>
+    //Below is for delete. See https://bulma.io/documentation/elements/
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            $notification = $delete.parentNode;
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+</script>
+{% endblock %}

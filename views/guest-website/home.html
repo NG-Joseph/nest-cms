@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+  {%include "navigation.html"%}
+  {%include "guest-website/home-fragments/home-carousel.html"%}
+  <!--Below nav, start sections. See https://bulma.io/documentation/layout/section/.
+  We will make this first section a hero i.e. big bold. See https://bulma.io/documentation/layout/hero/-->
+  <section class="hero is-link is-medium ">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="subtitle">
+          Welcome to <strong>{{title}}</strong>!
+        </h1>
+      </div>
+    </div>
+  </section>
+  {%include "footer.html" %}
+  <script>
+		bulmaCarousel.attach('.hero-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      pagination: true,
+      effect: 'fade',
+      loop: true
+    });
+    bulmaCarousel.attach('#homeCarousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      infinite: true
+    });
+  </script>
+{% endblock body %}
+

@@ -1,0 +1,38 @@
+version: "3"
+services:
+  postgres:
+    container_name: postgres2
+    image: postgres:latest
+    ports:
+    - "5433:5432"
+    volumes:
+    - /Users/piusonobhayedo/data/postgres:/data/postgres
+    env_file:
+    - docker.env
+    networks:
+    - local-bridge
+ 
+ # cockroachdb:
+ #   container_name: cockroachdb
+ #   image: cockroachdb
+ #   ports:
+ #   - "26257:26257"
+ #   volumes: 
+ #   - /Users/piusonobhayedo/data/cockroachdb:/data/cockroachdb
+ # pgadmin:
+ #   links:
+ #   - postgres:postgres2
+ #   container_name: pgadmin
+ #   image: dpage/pgadmin4
+ #   ports:
+ #   - "8080:80"
+ #   volumes:
+#  - /Users/piusonobhayedo/data/pgadmin:/root/.pgadmin
+ #   env_file:
+   # - docker.env
+  #  networks:
+  #  - postgres
+ 
+networks:
+  local-bridge:
+    driver: bridge

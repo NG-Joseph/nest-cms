@@ -1,0 +1,173 @@
+@charset "utf-8";
+
+/* Below are the initial variables of bulma.
+See https://github.com/jgthms/bulma/blob/master/sass/utilities/initial-variables.sass
+You can override any of them. I am using them ASIS*/
+$black:        hsl(0, 0%, 4%) !default;
+$black-bis:    hsl(0, 0%, 7%) !default;
+$black-ter:    hsl(0, 0%, 14%) !default;
+
+$grey-darker:  hsl(0, 0%, 21%) !default;
+$grey-dark:    hsl(0, 0%, 29%) !default;
+$grey:         hsl(0, 0%, 48%) !default;
+$grey-light:   hsl(0, 0%, 71%) !default;
+$grey-lighter: hsl(0, 0%, 86%) !default;
+$grey-lightest: hsl(0, 0%, 93%) !default;
+
+$white-ter:    hsl(0, 0%, 96%) !default;
+$white-bis:    hsl(0, 0%, 98%) !default;
+$white:        hsl(0, 0%, 100%) !default;
+
+$orange:       hsl(14,  100%, 53%) !default;
+$yellow:       hsl(48,  100%, 67%) !default;
+$green:        hsl(141, 53%,  53%) !default;
+$turquoise:    hsl(171, 100%, 41%) !default;
+$cyan:         hsl(204, 71%,  53%) !default;
+$blue:         hsl(217, 71%,  53%) !default;
+$purple:       hsl(271, 100%, 71%) !default;
+$red:          hsl(348, 86%, 61%) !default;
+
+// Typography
+$family-sans-serif: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+$family-monospace: monospace !default;
+$render-mode: optimizeLegibility !default;
+
+$size-1: 3rem !default;
+$size-2: 2.5rem !default;
+$size-3: 2rem !default;
+$size-4: 1.5rem !default;
+$size-5: 1.25rem !default;
+$size-6: 1rem !default;
+$size-7: 0.75rem !default;
+
+$weight-light: 300 !default;
+$weight-normal: 400 !default;
+$weight-medium: 500 !default;
+$weight-semibold: 600 !default;
+$weight-bold: 700 !default;
+
+// Spacing
+$block-spacing: 1.5rem !default;
+
+// Responsiveness
+// The container horizontal gap, which acts as the offset for breakpoints
+$gap: 32px !default;
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 769px !default;
+// 960px container + 4rem
+$desktop: 960px + (2 * $gap) !default;
+// 1152px container + 4rem
+$widescreen: 1152px + (2 * $gap) !default;
+$widescreen-enabled: true !default;
+// 1344px container + 4rem
+$fullhd: 1344px + (2 * $gap) !default;
+$fullhd-enabled: true !default;
+
+// Miscellaneous
+$easing: ease-out !default;
+$radius-small: 2px !default;
+$radius: 4px !default;
+$radius-large: 6px !default;
+$radius-rounded: 290486px !default;
+$speed: 86ms !default;
+
+// Flags
+$variable-columns: true !default;
+$rtl: false !default;
+
+
+/*
+For dark theme, I will make the following adjustment of which colours apply to 
+which Bulma's derived variables
+*/
+//invert the schemes
+$text-strong: $white-ter;
+$text: $grey-lightest;
+$text-light: $grey;
+
+$link-visited: $turquoise;
+$link-hover: $grey-lighter;
+$link-focus: $grey-lighter;
+$link-active-border: $grey-light;
+
+$scheme-main: $black;
+$scheme-main-bis: $black-bis;
+$scheme-main-ter: $black-ter;
+$scheme-invert: $white;
+$scheme-invert-bis: $white-bis;
+$scheme-invert-ter: $white-ter;
+
+$background: $black-ter;
+
+$border: $grey-darker;
+$border-hover: $grey-dark;
+$border-light: $black;
+$border-light-hover: $grey-dark;
+
+$body-background-color: $scheme-main-bis;
+
+//navigation
+$navbar-background-color: $scheme-main-ter;
+
+
+//footer
+$footer-background-color: $scheme-main-ter;
+
+
+
+// Update some of Bulma's derived variables
+//$body-background-color: $black;
+//$body-color: $beige-lighter;
+
+//Footer customization
+//$footer-background-color: #4a4a4a;
+
+$modal-card-head-radius: '3px';
+$modal-card-foot-radius: '3px';
+
+//Now it is time to import all installed bulma or some specific packages. Installing all for now
+@import "node_modules/bulma/bulma.sass";
+
+/*
+//or import specific packages
+// Import only what you need from Bulma
+@import "node_modules/bulma/sass/utilities/_all.sass";
+@import "node_modules/bulma/sass/base/_all.sass";
+@import "node_modules/bulma/sass/elements/button.sass";
+@import "node_modules/bulma/sass/elements/container.sass";
+@import "node_modules/bulma/sass/elements/title.sass";
+@import "node_modules/bulma/sass/form/_all.sass";
+@import "node_modules/bulma/sass/components/navbar.sass";
+@import "node_modules/bulma/sass/layout/hero.sass";
+@import "node_modules/bulma/sass/layout/section.sass";
+*/
+
+//Also install specific extensions or all
+
+/*import specific extensions*/
+@import 'node_modules/bulma-extensions/bulma-accordion/src/sass/index.sass';
+@import 'node_modules/bulma-extensions/bulma-carousel/src/sass/index.sass';
+@import 'node_modules/bulma-extensions/bulma-calendar/src/sass/index.sass';
+
+//for below, see https://github.com/postare/bulma-modal-fx. npm i bulma-modal-fx
+// Modal minimal setup
+/*
+$transition-duration: .3s;
+$transition-duration-newsPaper: .7s;
+$transition-duration-3dslit: .5s;
+$modal-perspective: 1300px;
+$modal-bg-color: rgba($scheme-invert,.86);
+@import 'node_modules/bulma-modal-fx/src/_scss/main.scss';
+*/
+
+/*Add miscellaneous CSS entries here as they arise during development*/
+//Below is to ensure that the carousel in home page does not show outline on focus
+#homeCarousel div:focus {
+    outline:none;
+}
+
+/*
+.content{
+    background-color: $scheme-main-bis;
+}
+*/

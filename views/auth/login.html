@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% block body %}
+{%include "navigation.html"%}
+<section class="section" style="flex: 1;">
+    <div class="container">
+        <h3 class="title is-3">{{title}}</h3>
+    </div>
+
+    <section class="section">
+        <!--The login form is loaded from /login route. The loginUrl below is another named e.g. process-login 
+        If login fails, the user will be redirected on the server side to /login for the form. If login succeeds,
+        the user will be directed to the postLogin Url. The loginUrl sent from server in principle should havd
+        a query for next e.g. loginUrl?next=/user-management
+        The process-login success with pass token via cookie to the postLogin URL. 
+        See https://wanago.io/2020/05/25/api-nestjs-authenticating-users-bcrypt-passport-jwt-cookies/
+        Note that fastify reply allows the setting of cookies reply.setCookie('session', 'value', { secure: false })
+        
+        -->
+        <form id="loginForm" action="{{loginUrl}}" method="POST">
+            <fieldset id="loginFormFieldSet" class="container">
+                <div class="field">
+                    <label class="label">Email:</label>
+                    <div class="control has-icons-right">
+                        <input class="input" id="username" name="username" type="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password:</label>
+                    <div class="control has-icons-right">
+                        <input class="input" id="password" name="password" type="password" placeholder="Password"
+                            required>
+                        <span class="is-clickable-icon icon  is-small is-right toggle-password-view">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input type="checkbox" checked="checked" name="remember" /> Remember me
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" id="submitLoginForm" class="button is-link">Submit</button>
+                    </div>
+                    <div class="control">
+                        <button type="reset" class="button is-light">Clear</button>
+                    </div>
+                    <div class="control">
+                        <span id="forgotPassword" type="submit" class="button is-text"><a href="#">Forgot
+                                password?</a></span>
+                    </div>
+                </div>
+                <div class="field">
+                    <div id="fb-login-button" class="button is-info">Facebook Login</div>
+                </div>
+
+            </fieldset>
+
+
+        </form>
+        <section class="section">
+            <div class="container">
+                <div id="notification" class="notification container is-hidden animated slideInUp">
+                    <button class="delete"></button>
+                    <div id="notificationMessage">
+                        {{notificationMessage}}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <script>
+            /* section on forgotPassword*/
+            const forgotPassword = document.getElementById('forgotPassword');
+
+            forgotPassword.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const email = document.getElementById('username');
+
+                if (email.value == '') {
+                    email.reportValidity();
+                    return false;
+                }
+
+                //Prepare to send to the backend URL asynchronously using fetch()
+                const URL = '{{forgotPasswordUrl}}';
+
+                const init = {
+                    method: 'Post',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    //credentials: 'same-origin',
+                    body: email.value
+                }
+                //call fetch to talk with the backend asynchronously
+                //start the button spinner
+                document.getElementById("forgotPassword").classList.add("is-loading");
+
+                fetch(URL, init)
+                    .then(response => response.json())
+                    .then(response => {
+                        //remove spinner class
+                        document.getElementById("forgotPassword").classList.remove("is-loading");
+                        //set notification
+                        document.getElementById("notificationMessage").innerHTML = response.notificationMessage;
+                        //add notification color class sent
+                        document.getElementById("notification").classList.add(response.notificationClass);
+                        //remove is-hidden from notificationWrapper
+                        document.getElementById("notification").classList.remove("is-hidden");
+
+                    })
+                    .catch(error => {
+                        //remove spinner class
+                        document.getElementById("forgotPassword").classList.remove("is-loading");
+
+                        document.getElementById("notificationMessage").innerHTML = response.notificationMessage;
+                        //add notification color class sent
+                        document.getElementById("notification").classList.add(response.notificationClass);
+                        //remove is-hidden from notificationWrapper
+                        document.getElementById("notification").classList.remove("is-hidden");
+
+                    });
+            });
+            /* Section on login*/
+            const loginForm = document.getElementById('loginForm');
+
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                //check validities
+                const username = document.getElementById('username').value;
+
+                if (username == '') {
+                    username.reportValidity();
+                    return false;
+                }
+
+                const password = document.getElementById('password').value;
+
+                if (password == '') {
+                    password.reportValidity();
+                    return false;
+                }
+
+                //start the button spinner
+                document.getElementById("submitLoginForm").classList.add("is-loading");
+
+                //prepare init for fetch
+                const init = {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    //credentials: 'same-origin',
+                    body: JSON.stringify({ username, password })
+                }
+
+                //call fetch
+                fetch('{{loginUrl}}', init)
+                    .then(response => response.json())
+                    .then(data => {
+                        const accessToken = JSON.stringify(data.access_token);
+                        const refreshToken = JSON.stringify(data.refresh_token);
+
+                        //data = JSON.stringify(data)
+                        //remove spinner class
+                        document.getElementById("submitLoginForm").classList.remove("is-loading");
+                        //set notification
+                        document.getElementById("notificationMessage").innerHTML = 'Login successful';
+                        //add notification color class sent
+                        document.getElementById("notification").classList.add("is-success");
+                        //remove is-hidden from notificationWrapper
+                        document.getElementById("notification").classList.remove("is-hidden");
+
+                        //put the tokens in localstorage
+                        localStorage.setItem("accessToken", accessToken);
+                        localStorage.setItem("refreshToken", refreshToken);
+
+                        window.location.replace('{{next}}')
+
+                    })
+                    .catch(error => {
+                        //remove spinner class
+                        document.getElementById("submitLoginForm").classList.remove("is-loading");
+
+                        document.getElementById("notificationMessage").innerHTML = error.message;
+                        //add notification color class sent
+                        document.getElementById("notification").classList.add("is-danger");
+                        //remove is-hidden from notificationWrapper
+                        document.getElementById("notification").classList.remove("is-hidden");
+
+                    });
+
+
+
+            });
+
+            /* section on facebook login */
+            const fbLogin = document.getElementById('fb-login-button');
+
+            fbLogin.addEventListener('click', (event) => {
+
+                //alert('fbLogin clicked')
+                event.preventDefault();
+
+                //start the button spinner
+                fbLogin.classList.add("is-loading");
+
+                //prepare init for fetch
+                const init = {
+                    method: 'Get',
+                    redirect: 'manual', //notice the manual here, so that we can manually redirect on response return as shown below
+                    mode: 'no-cors', // no-cors, *cors, same-origin
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+
+                //call fetch
+                fetch('/v1/auth/facebook', init)
+                    .then(response => {
+                        if (response.url) { //it is expected to redirect to the url specified in facebook strategy. Notice the redirect: 'manual' in init above
+                            window.location.replace(response.url)
+                        }
+                        response.json()
+                    })
+                    .catch(error => {
+                        //remove spinner class
+                        fbLogin.classList.remove("is-loading");
+
+                        document.getElementById("notificationMessage").innerHTML = error.message;
+                        //add notification color class sent
+                        document.getElementById("notification").classList.add("is-danger");
+                        //remove is-hidden from notificationWrapper
+                        document.getElementById("notification").classList.remove("is-hidden");
+
+                    });
+            });
+
+
+
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                //const tokens = document.querySelector('#tokens');
+                const tokens = document.getElementById('tokens')
+                if (tokens) {
+                    //set notification
+                    document.getElementById("notificationMessage").innerHTML = "Facebook authentication successful, logging you into the server. You will be automatically redirected. Please wait...";
+                    document.getElementById("notification").classList.add("is-success");
+                    document.getElementById("notification").classList.remove("is-hidden");
+                    
+                    const accessToken = tokens.getAttribute('data-access');
+                    const refreshToken = tokens.getAttribute('data-refresh');
+                    //TODO: Write to the localStorage and set windows location
+                    //put the tokens in localstorage
+                    localStorage.setItem("accessToken", accessToken);
+                    localStorage.setItem("refreshToken", refreshToken);
+
+                    //get the next stored when login form first appeared on client without tokens.
+                    const next = localStorage.getItem("next");
+                    //redirect to next
+                    window.location.replace(next)
+                } else {
+                    //write next to localStorage for pickup when login has already taken place and token
+                    const next = document.getElementById('next');
+                    localStorage.setItem("next", next.getAttribute('data-next'));
+                }
+
+
+            })
+        </script>
+        {% if saveTokensInClient == 'true' %}
+            <div id="tokens" data-access={{access_token}} data-refresh={{refresh_token}}>
+            </div>
+        {% else %}
+            <div id="next" data-next={{next}}>
+            </div>
+        {% endif %}
+    </section>
+
+</section>
+{%include "footer.html"%}
+{% endblock %}

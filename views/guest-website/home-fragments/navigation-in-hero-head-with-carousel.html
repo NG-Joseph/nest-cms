@@ -1,0 +1,68 @@
+  <!-- Start Hero Carousel that includes navigation in head region-->
+  <section class="hero is-large has-carousel">
+    <div class="hero-carousel">
+      <div class="carousel-item has-background is-active" style="pointer-events: none !important; z-index:8 !important;">
+          <img class="is-background" src="https://wikiki.github.io/images/merry-christmas.jpg" 
+          alt="" style="pointer-events: none !important; z-index:9 !important;"/>
+          <div class="hero-body has-text-left is-overlay" style="pointer-events: none !important; z-index:10 !important;">
+            <h1 class="title has-text-white">First Image</h1>
+            <h2 class="subtitle has-text-white">About what this image represents</h2>
+            <a href="/{{apiVersion}}" class="subtitle has-text-white" style="pointer-events: all !important; z-index:20 !important;">More...</a>
+          </div>
+      </div>
+      
+      <div class='carousel-item has-background'>
+        <img class="is-background" src="https://wikiki.github.io/images/singer.jpg" alt="" draggable="false"/>
+      </div>
+      <div class='carousel-item has-background'>
+        <img class="is-background" src="https://wikiki.github.io/images/sushi.jpg" alt="" draggable="false"/>
+      </div>
+      <div class='carousel-item has-background'>
+        <img class="is-background" src="https://wikiki.github.io/images/life.jpg" alt="" draggable="false"/>
+      </div>
+    </div>
+		<div class="hero-head">
+      <!-- using bulma classes. See https://bulma.io/documentation/components/navbar/-->
+      <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+        <!--navbar-brand is for the logo and hamburger menu for narrow screens-->
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img src="/img/piosystems-logo.png">
+          </a>
+          <!--Notice the data-target below in the hamburger menu. Set is-active when on mobile-->
+          <a role="button" class="navbar-burger burger has-text-white" aria-label="menu" aria-expanded="false" data-target="bookExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <!--Notice the id="bookExample" here. This makes this div's menuitems the data-target for the navbar-burger above-->
+        <div id="bookExample" class="navbar-menu">
+          <!--navbar-start below is for a set of menu items that are left oriented-->
+          <div class="navbar-start">
+            <a class="navbar-item has-text-white is-active {{'navbar-item-active' if homeActive else ''}}">
+              Home
+            </a>
+            <a class="navbar-item has-text-white {{'navbar-item-active' if homeActive else ''}}">
+              About us
+            </a>
+          </div>
+          <!--navbar-end below is for a set of menu items that are right oriented-->
+          <div class="navbar-end">
+            <div class="buttons">
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+		<div class="hero-body has-text-centered">
+      <!--h1 class="title has-text-white">Student Information Management System</h1-->
+      <a href="#" class="title has-text-white">More...</a>
+    </div>
+
+	</section>
+	<!-- End Hero Carousel -->
